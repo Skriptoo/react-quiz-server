@@ -1,6 +1,5 @@
 import express, {Express, Request, Response} from "express";
 import { Server } from "socket.io";
-import { createServer } from "http";
 import cors from 'cors';
 
 const PORT = process.env.PORT || 8000;
@@ -16,7 +15,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-const httpServer = createServer();
 
 const io = new Server(expressServer, {
     cors: {
@@ -30,7 +28,13 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log("user disconnected")
     });
-    //socket.emit('connect', {message: 'user connected'})
+
+    socket.on('joinRoom', (userName: string,roomCode: string) => {
+        console.log(roomCode)
+        socket.join(roomCode);
+        
+        console.log(`${userName} connected to room ${roomCode}`);
+    })
 });
 
 
