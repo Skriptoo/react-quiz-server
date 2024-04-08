@@ -1,14 +1,17 @@
 import express, {Express, Request, Response} from "express";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import cors from 'cors';
 
 const PORT = process.env.PORT || 8000;
 
 const app: Express = express();
 
+
 const expressServer = app.listen(PORT, ()=> {
     console.log(`now listening on port ${PORT}`);
 });
+
+
 
 app.use(cors({
     origin: "*"
@@ -23,7 +26,8 @@ const io = new Server(expressServer, {
     }
 })
 
-io.on('connection', (socket) => {
+
+io.on('connection', (socket: Socket) => {
     console.log(`: ${socket.id} connected`)
     socket.on('disconnect', () => {
         console.log("user disconnected")
@@ -35,17 +39,5 @@ io.on('connection', (socket) => {
         
         console.log(`${userName} connected to room ${roomCode}`);
     })
-});
-
-
-app.get("/", (req: Request, res: Response) => {
-    res.send("essa");
-    io.emit('connection');
-})
-
-
-app.get("/hi", (req, res) => {
-    io.emit('connection');
-    res.send("hi");
 });
 
