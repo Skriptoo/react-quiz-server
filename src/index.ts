@@ -11,12 +11,6 @@ const expressServer = app.listen(PORT, ()=> {
     console.log(`now listening on port ${PORT}`);
 });
 
-
-
-app.use(cors({
-    origin: "*"
-}));
-
 app.use(express.json());
 
 const io = new Server(expressServer, {
@@ -33,11 +27,9 @@ io.on('connection', (socket: Socket) => {
         console.log("user disconnected")
     });
 
-    socket.on('joinRoom', (userName: string,roomCode: string) => {
-        console.log(roomCode)
+    socket.on('joinRoom', (roomCode: string) => {
         socket.join(roomCode);
-        
-        console.log(`${userName} connected to room ${roomCode}`);
+        console.log(`a user connected to room ${roomCode}`);
     })
 });
 
