@@ -23,7 +23,11 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@prisma/client": "^5.18.0",
     "concurrently": "^8.2.2",
-    "nodemon": "^3.0.2"
+    "i": "^0.3.7",
+    "nodemon": "^3.0.2",
+    "npm": "^10.8.2",
+    "prisma": "^5.18.0"
   }
 }
